@@ -1,0 +1,4 @@
+{
+    "jwtSecret": "incC$now#",
+    "mongoLink": "mongodb://AuthAdmin:Ai32kn523fdU34AAdmDin123DFS@109.234.37.59:27018/auth"
+}
