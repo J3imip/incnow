@@ -1,9 +1,9 @@
-import React, {useEffect, useState, useCallback, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {AuthContext} from '../../context/AuthContext.js';
 import { useHttp } from '../../hooks/http.hook.js';
 import styles from './Login.module.css';
 
-const initialState =  { username: '', password: '', expiresIn: '1h'}
+const initialState =  { username: '', password: '', expiresIn: '1h'} // inital login data
 
 export default function Login() {
     const auth = useContext(AuthContext);
@@ -23,18 +23,18 @@ export default function Login() {
     }
 
     const loginHandler = async() => {
-        if(rememberMe) formData.expiresIn = '1y';
-        const data = await request(`http://localhost:3600/api/auth/login`, 'POST', {...formData});
+        if(rememberMe) formData.expiresIn = '1y'; 
+        const data = await request(`http://109.234.37.59:4000/api/auth/login`, 'POST', {...formData});
 
         if(!data) {
             setDataIncorrect(true);
             setError(true);
             setTimeout(()=>{
                 setDataIncorrect(false);
-            }, 500)
+            }, 500); // some states to figure out with animation on incorrect data
             setFormData(initialState);
         } else {
-            auth.login(data.username, data.token, data.userId);
+            auth.login(data.username, data.token, data.userId); 
             window.location.reload();
         }
     }

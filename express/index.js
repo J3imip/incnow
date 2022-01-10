@@ -1,21 +1,18 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const config = require('config');
 const mongoose = require('mongoose');
 const AuthApi = require('./routes/api.auth.js');
-const schemas = require('./schemas/schemas');
 const cors = require('cors');
 
-mongoose.connect(config.get("mongoLink"), {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(config.get("mongoLink"), {useNewUrlParser: true, useUnifiedTopology: true}); // mongodb connection
 const db = mongoose.connection;
 
 db.setMaxListeners(10);
 db.once('open', async() => {console.error('Connected to Database')});
 
 const router = express.Router();
-const port = 3600;
+const port = 4000;
 const app = express();
-
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +22,6 @@ router.get('/ping', (res, req)=>{
     return req.send("pong");
 });
 
-app.listen(port, ()=>{
-    console.log('Auth backend started on http://localhost:3600');
+app.listen(port, '0.0.0.0', ()=>{
+    console.log('Auth backend started on http://109.234.37.59:4000/'); // started on my own server
 });

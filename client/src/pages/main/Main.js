@@ -1,6 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styles from './Main.module.css';
-import {Redirect} from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 export default function Main() {

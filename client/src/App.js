@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router
 } from "react-router-dom";
@@ -10,7 +10,7 @@ import useRoutes from './routes';
 
 function App() {
   const {token, login, logout, userId, username} = useAuth();
-  const isAuthenticated = !!token;
+  const isAuthenticated = !!token; // user authenticated if the token exists in localStorage 
   const routes = useRoutes(isAuthenticated);
 
   return (

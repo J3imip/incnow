@@ -1,8 +1,9 @@
-import React, {useEffect, useState, useCallback, useContext} from 'react';
+import React, {useState} from 'react';
 import styles from './Register.module.css';
 import {useHttp} from '../../hooks/http.hook';
 import { toast } from "react-toastify";
-const initialState =  {username: '', password: ''}
+
+const initialState =  {username: '', password: '', email: ''}
 
 export default function Register() {
     const {request} = useHttp();
@@ -11,18 +12,12 @@ export default function Register() {
     const [error, setError] = useState(false);
     const [dataIncorrect, setDataIncorrect] = useState(false);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setError(false);
-        }, 1000);
-    }, [error])
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value});
     }
 
     const registerHandler = async() => {
-        const data = await request(`http://localhost:3600/api/auth/register`, "POST", {...formData});
+        const data = await request(`http://109.234.37.59:4000/api/auth/register`, "POST", {...formData});
 
         if(!data) {
             setDataIncorrect(true);
@@ -30,15 +25,15 @@ export default function Register() {
             setTimeout(()=>{
                 setDataIncorrect(false);
             }, 500);
-        } else {
-            toast.success('Registered new account!');
+        } else if(data && formData.email.includes("@")) {
+            toast.success('Registered new account!'); // show notification on success registration  
         }
     }
 
     return(
         <div className={styles.container}>
             <div className={dataIncorrect ? `${styles.register} ${styles.shake} ` : styles.register}>
-                <label for="admin-register">register</label>
+                <label htmlFor="admin-register">register</label>
                 <form name="admin-register">
                     <input 
                         placeholder="email" 
