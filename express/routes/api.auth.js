@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const schemas = require('../schemas/schemas');
-const mongoose = require('mongoose');
-
 const Router = require('express');
 const router = new Router();
 
@@ -86,19 +84,19 @@ router.post(
         const user = await findOne({username});
 
         if(!user) {
-            return res.status(400).json({message: "Authentication failed."});
+            return res.status(400).json({message: "User does not exist."});
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
 
         if(!isMatch) {
-            return res.status(400).json({message: "Authentication failed."});
+            return res.status(400).json({message: "Incorrect password."});
         }
 
         const token = jwt.sign(
-            {userId: user._id}, 
+            {userId: user._id, username: user.username}, 
             config.get("jwtSecret"), 
-            {expiresIn: '1h'}
+            {expiresIn: req.body.expiresIn}
         );
 
         return res.json({ token, userId: user._id, username: user.username});
@@ -110,7 +108,7 @@ router.post(
     async(req, res)=>{
         const result = jwt.verify(req.body.token, config.get("jwtSecret"), (err, decoded)=>{
             if(!err) {
-                return res.json(decoded.userId == req.body.userId);
+                return res.json(decoded.userId == req.body.userId && decoded.username == req.body.username);
             } else {
                 return res.json(false);
             }

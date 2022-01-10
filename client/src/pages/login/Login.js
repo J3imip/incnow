@@ -3,7 +3,7 @@ import {AuthContext} from '../../context/AuthContext.js';
 import { useHttp } from '../../hooks/http.hook.js';
 import styles from './Login.module.css';
 
-const initialState =  { username: '', password: ''}
+const initialState =  { username: '', password: '', expiresIn: '1h'}
 
 export default function Login() {
     const auth = useContext(AuthContext);
@@ -12,12 +12,18 @@ export default function Login() {
     const [formData, setFormData] = useState(initialState);
     const [error, setError] = useState(false);
     const [dataIncorrect, setDataIncorrect] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value});
     }
 
+    const handleRememberMeClick = () => {
+        setRememberMe(!rememberMe);
+    }
+
     const loginHandler = async() => {
+        if(rememberMe) formData.expiresIn = '1y';
         const data = await request(`http://localhost:3600/api/auth/login`, 'POST', {...formData});
 
         if(!data) {
@@ -36,7 +42,7 @@ export default function Login() {
     return(
         <div className={styles.container}>
             <div className={dataIncorrect ? `${styles.login} ${styles.shake} ` : styles.login}>
-                <label htmlFor="admin-login">Login</label>
+                <label className={styles.adminLogin} htmlFor="admin-login">Login</label>
                 <form name="admin-login">
                     <input 
                         placeholder="username" 
@@ -56,6 +62,10 @@ export default function Login() {
                     />
                 </form>
                 <button type="button" onClick={loginHandler}>continue</button>
+                <div className={styles.rememberMeContainer}>
+                    <label htmlFor='rememberMe'>remember me</label>
+                    <input type="checkbox" id='rememberMe' onClick={handleRememberMeClick}/>    
+                </div>
                 <div className={styles.register_button} onClick={()=>{window.location.href="/register"}}>Not a member yet?</div>
             </div>
         </div>

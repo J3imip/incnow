@@ -4,6 +4,8 @@ import {
 } from "react-router-dom";
 import { useAuth } from './hooks/auth.hook.js';
 import { AuthContext } from './context/AuthContext.js';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import useRoutes from './routes';
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
       token, login, logout, userId, username, isAuthenticated
     }}>
       <Router>
+        <ToastContainer/>
         {routes}
       </Router>
     </AuthContext.Provider>

@@ -6,10 +6,6 @@ import { AuthContext } from '../../context/AuthContext';
 export default function Main() {
     const auth = useContext(AuthContext);
 
-    useEffect(() => {
-        console.log(auth);
-    }, [auth])
-
     return(
         <div className={styles.mainContainer}>
             <div className={styles.helloContainer}>

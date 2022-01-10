@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {toast} from 'react-toastify';
 
 export const useHttp = () => {
     const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ export const useHttp = () => {
             const data = await response.json();
             if(!response.ok) {
                 setLoading(false);
+                toast.error(data.message);
                 return;
             }
 
@@ -25,7 +27,7 @@ export const useHttp = () => {
         } catch (error) {
             setLoading(false);
             setError(error.message);
-            // throw error;
+            toast.error(error.message);
         }
     }
 

@@ -21,7 +21,7 @@
     align-items: center;
 }
 
-.login label {
+.adminLogin {
     font-family: "Raleway",sans-serif;
     font-weight: 800;
     color: #218555;
@@ -56,7 +56,7 @@
     border-radius: 2px;
 }
 
-.login input {
+.login input[type=text], input[type=password] {
     -webkit-appearance: none;
     border: 2px solid transparent;
     border-radius: 2px;
@@ -71,19 +71,19 @@
     box-sizing: border-box;
 }
 
-.login input:last-child {
+.login input[type=text]:last-child, input[type=password]:last-child {
     margin-top: 10px;
 }
 
-.login input:focus {
+.login input[type=text]:focus, input[type=password]:focus {
     outline: none;
 }
 
-.login input:hover {
+.login input[type=text]:hover, input[type=password]:hover {
     box-shadow: inset 2px 2px 8px rgb(38 49 50 / 60%);
 }
 
-.login input::placeholder {
+.login input[type=text]::placeholder, input[type=password]::placeholder {
     color: #22222296;
     letter-spacing: 0.1em;
     letter-spacing: normal;
@@ -94,7 +94,7 @@
     font-family: "IBM Plex Sans",sans-serif;
 }
 
-.login input:focus::placeholder {
+.login input[type=text]:focus::placeholder, input[type=password]:focus::placeholder {
     color: transparent;
 }
 
@@ -129,7 +129,7 @@
     }
 }
 
-.login input.missing {
+.login input[type=text].missing, input[type=password].missing {
     border: 2px solid red;
     box-shadow: inset 0 0 10px rgb(255 0 0 / 60%);
 }
@@ -143,4 +143,18 @@
 .register_button:hover {
     color: #222222;
     cursor: pointer;
+}
+
+.rememberMeContainer {
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #22222296;
+    transition: .2s ease-in-out;
+}
+
+
+.rememberMeContainer:hover {
+    color: black;
 }

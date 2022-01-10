@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useCallback, useContext} from 'react';
 import styles from './Register.module.css';
 import {useHttp} from '../../hooks/http.hook';
+import { toast } from "react-toastify";
 const initialState =  {username: '', password: ''}
 
 export default function Register() {
@@ -30,7 +31,7 @@ export default function Register() {
                 setDataIncorrect(false);
             }, 500);
         } else {
-            window.location.href = '/login';
+            toast.success('Registered new account!');
         }
     }
 
